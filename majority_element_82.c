@@ -2,23 +2,9 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-int maxsub(int a[], int n)
+int compare(const void *a, const void *b)
 {
-    int sum = a[0], max = a[0];
-    for (int i = 1; i < n; i++)
-    {
-        if (a[i] > a[i - 1])
-        {
-            sum += a[i];
-        }
-        else
-            sum = a[i];
-        if (sum > max)
-        {
-            max = sum;
-        }
-    }
-    return max;
+    return (*(int *)a - *(int *)b);
 }
 int main()
 {
@@ -31,6 +17,23 @@ int main()
     {
         scanf("%d", &a[i]);
     }
-    printf("%d", maxsub(a, n));
+    qsort(a, n, sizeof(int), compare);
+    int key = a[n / 2];
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] == key)
+        {
+            count++;
+        }
+    }
+    if (count > n / 2)
+    {
+        printf("%d", key);
+    }
+    else
+    {
+        printf("-1");
+    }
     return 0;
 }
